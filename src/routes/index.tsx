@@ -1,24 +1,49 @@
 import { createFileRoute } from "@tanstack/react-router";
+import logo from "@/assets/logo_tapes.png.asset.json";
+import bg from "@/assets/hero_bg.jpg.asset.json";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "tapes — live with passion" },
+      { name: "description", content: "Join tapes. Live with passion, live tapes." },
+      { property: "og:title", content: "tapes — live with passion" },
+      { property: "og:description", content: "Join tapes. Live with passion, live tapes." },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
+    <div className="relative min-h-screen w-full overflow-hidden bg-black">
       <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
+        src={bg.url}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover"
       />
+      <div className="absolute inset-0 bg-black/30" />
+
+      <div className="relative z-10 flex min-h-screen flex-col justify-end px-6 pb-8">
+        <div className="mb-6 flex justify-center">
+          <img src={logo.url} alt="tapes" className="h-24 w-auto object-contain" />
+        </div>
+        <p className="mb-8 text-center text-lg text-white/95">
+          live with passion, live tapes
+        </p>
+
+        <button className="mb-3 w-full rounded-md bg-[#2dd4bf] py-4 text-xl font-medium text-white transition-opacity hover:opacity-90">
+          sign up
+        </button>
+        <button className="w-full rounded-md border-2 border-white bg-transparent py-4 text-xl font-medium text-white transition-colors hover:bg-white/10">
+          log in
+        </button>
+
+        <p className="mt-6 text-center text-xs text-white/90">
+          by signing up, you agree to the <span className="font-semibold">Terms of Use</span> &{" "}
+          <span className="font-semibold">Privacy Policy</span>.
+        </p>
+      </div>
     </div>
   );
 }
