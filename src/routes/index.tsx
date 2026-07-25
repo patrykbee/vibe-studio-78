@@ -5,10 +5,10 @@ import bg from "@/assets/hero_bg.jpg.asset.json";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "tapes — live with passion" },
-      { name: "description", content: "Join tapes. Live with passion, live tapes." },
-      { property: "og:title", content: "tapes — live with passion" },
-      { property: "og:description", content: "Join tapes. Live with passion, live tapes." },
+      { title: "tapes — nagrywaj z pasji" },
+      { name: "description", content: "Dołącz do tapes. Nagrywaj z pasji, żyj z Tapes." },
+      { property: "og:title", content: "tapes — nagrywaj z pasji" },
+      { property: "og:description", content: "Dołącz do tapes. Nagrywaj z pasji, żyj z Tapes." },
     ],
   }),
   component: Index,
@@ -29,7 +29,7 @@ function Index() {
           <img src={logo.url} alt="tapes" className="h-24 w-auto object-contain" />
         </div>
         <p className="mb-8 text-center text-lg text-white/95">
-          live with passion, live tapes
+          nagrywaj z pasji, żyj z Tapes
         </p>
 
         <button className="mb-3 w-full rounded-md bg-[#2dd4bf] py-4 text-xl font-medium text-white transition-opacity hover:opacity-90">
