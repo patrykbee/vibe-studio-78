@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import logo from "@/assets/logo_tapes.png.asset.json";
-import bg from "@/assets/hero_bg.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -17,16 +16,9 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-black">
-      <img
-        src={bg.url}
-        alt=""
-        className="absolute inset-0 h-full w-full object-cover"
-      />
-      <div className="absolute inset-0 bg-black/30" />
-
       <div className="relative z-10 flex min-h-screen flex-col justify-end px-6 pb-8">
         <div className="mb-6 flex justify-center">
-          <img src={logo.url} alt="tapes" className="h-24 w-auto object-contain" />
+          <img src={logo.url} alt="tapes" className="h-48 w-auto object-contain" />
         </div>
         <p className="mb-8 text-center text-lg text-white/95">
           nagrywaj z pasji, żyj z Tapes
