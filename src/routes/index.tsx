@@ -56,10 +56,10 @@ function Index() {
       <div className="absolute inset-0 bg-black/30" />
 
       <div className="relative z-10 flex min-h-screen flex-col justify-end px-6 pb-8">
-        <div className="mb-4 flex justify-center">
+        <div className="mb-1 flex justify-center">
           <img src={logo.url} alt="tapes" className="h-72 w-auto object-contain" />
         </div>
-        <p className="mb-10 mt-2 text-center text-lg text-white/95">
+        <p className="mb-4 text-center text-lg text-white/95">
           nagrywaj z pasji, żyj z Tapes
         </p>
 
