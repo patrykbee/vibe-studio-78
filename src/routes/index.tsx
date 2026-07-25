@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import logo from "@/assets/logo_tapes.png.asset.json";
 import video from "@/assets/homeVideo.mp4.asset.json";
@@ -60,12 +60,18 @@ function Index() {
           <img src={logo.url} alt="tapes" className="h-72 w-auto object-contain" />
         </div>
 
-        <button className="mb-3 w-full rounded-md bg-[#ff2e93] py-4 text-xl font-medium text-white shadow-[0_0_20px_rgba(255,46,147,0.7)] transition-opacity hover:opacity-90">
+        <Link
+          to="/signup"
+          className="mb-3 block w-full rounded-md bg-[#ff2e93] py-4 text-center text-xl font-medium text-white shadow-[0_0_20px_rgba(255,46,147,0.7)] transition-opacity hover:opacity-90"
+        >
           sign up
-        </button>
-        <button className="w-full rounded-md border-2 border-white bg-transparent py-4 text-xl font-medium text-white transition-colors hover:bg-white/10">
+        </Link>
+        <Link
+          to="/login"
+          className="block w-full rounded-md border-2 border-white bg-transparent py-4 text-center text-xl font-medium text-white transition-colors hover:bg-white/10"
+        >
           log in
-        </button>
+        </Link>
 
         <p className="mt-6 text-center text-xs text-white/90">
           by signing up, you agree to the <span className="font-semibold">Terms of Use</span> &{" "}
