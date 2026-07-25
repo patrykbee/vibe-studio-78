@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
 import logo from "@/assets/logo_tapes.png.asset.json";
+import video from "@/assets/homeVideo.mp4.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -14,8 +16,45 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [needsUnmute, setNeedsUnmute] = useState(false);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = false;
+    v.volume = 1;
+    v.play()
+      .then(() => setNeedsUnmute(false))
+      .catch(() => {
+        // Browser blocked autoplay with sound — fall back to muted playback
+        v.muted = true;
+        v.play().catch(() => {});
+        setNeedsUnmute(true);
+      });
+  }, []);
+
+  const enableSound = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = false;
+    v.volume = 1;
+    v.play().catch(() => {});
+    setNeedsUnmute(false);
+  };
+
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-black">
+      <video
+        ref={videoRef}
+        src={video.url}
+        autoPlay
+        loop
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      <div className="absolute inset-0 bg-black/30" />
+
       <div className="relative z-10 flex min-h-screen flex-col justify-end px-6 pb-8">
         <div className="mb-6 flex justify-center">
           <img src={logo.url} alt="tapes" className="h-48 w-auto object-contain" />
@@ -36,6 +75,15 @@ function Index() {
           <span className="font-semibold">Privacy Policy</span>.
         </p>
       </div>
+
+      {needsUnmute && (
+        <button
+          onClick={enableSound}
+          className="absolute right-4 top-4 z-20 rounded-full bg-black/60 px-4 py-2 text-sm font-medium text-white backdrop-blur-sm"
+        >
+          🔊 włącz dźwięk
+        </button>
+      )}
     </div>
   );
 }
