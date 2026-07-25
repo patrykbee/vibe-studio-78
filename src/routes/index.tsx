@@ -56,14 +56,11 @@ function Index() {
       <div className="absolute inset-0 bg-black/30" />
 
       <div className="relative z-10 flex min-h-screen flex-col justify-end px-6 pb-8">
-        <div className="mb-1 flex justify-center">
+        <div className="mb-8 flex justify-center">
           <img src={logo.url} alt="tapes" className="h-72 w-auto object-contain" />
         </div>
-        <p className="mb-4 text-center text-lg text-white/95">
-          nagrywaj z pasji, żyj z Tapes
-        </p>
 
-        <button className="mb-3 w-full rounded-md bg-[#2dd4bf] py-4 text-xl font-medium text-white transition-opacity hover:opacity-90">
+        <button className="mb-3 w-full rounded-md bg-[#ff2e93] py-4 text-xl font-medium text-white shadow-[0_0_20px_rgba(255,46,147,0.7)] transition-opacity hover:opacity-90">
           sign up
         </button>
         <button className="w-full rounded-md border-2 border-white bg-transparent py-4 text-xl font-medium text-white transition-colors hover:bg-white/10">
