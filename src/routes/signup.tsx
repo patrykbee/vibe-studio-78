@@ -81,6 +81,13 @@ function SignUpPage() {
 
   return (
     <div className="min-h-screen w-full bg-black text-white">
+      <Link
+        to="/"
+        aria-label="Back"
+        className="absolute left-4 top-4 z-20 rounded-full bg-white/10 p-2 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+      >
+        <ArrowLeft size={24} />
+      </Link>
       <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-6 py-10">
         <div className="mb-8 flex justify-center">
           <img src={logo.url} alt="tapes" className="h-32 w-auto object-contain" />
