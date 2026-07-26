@@ -18,6 +18,13 @@ export const Route = createFileRoute("/")({
 function Index() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [needsUnmute, setNeedsUnmute] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    const t = setTimeout(() => setShowSplash(false), 1800);
+    return () => clearTimeout(t);
+  }, []);
+
 
   useEffect(() => {
     const v = videoRef.current;
