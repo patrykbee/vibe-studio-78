@@ -18,12 +18,19 @@ export const Route = createFileRoute("/")({
 function Index() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [needsUnmute, setNeedsUnmute] = useState(false);
-  const [showSplash, setShowSplash] = useState(true);
+  const [showSplash, setShowSplash] = useState(() => {
+    if (typeof window === "undefined") return true;
+    return !sessionStorage.getItem("tapes_splash_shown");
+  });
 
   useEffect(() => {
-    const t = setTimeout(() => setShowSplash(false), 1800);
+    if (!showSplash) return;
+    const t = setTimeout(() => {
+      setShowSplash(false);
+      try { sessionStorage.setItem("tapes_splash_shown", "1"); } catch {}
+    }, 1800);
     return () => clearTimeout(t);
-  }, []);
+  }, [showSplash]);
 
 
   useEffect(() => {
