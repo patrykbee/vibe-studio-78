@@ -50,6 +50,17 @@ function Index() {
     setNeedsUnmute(false);
   };
 
+  if (showSplash) {
+    return (
+      <div className="flex min-h-screen w-full items-center justify-center bg-white">
+        <h1 className="text-7xl font-bold tracking-tight" style={{ fontFamily: "'Caveat', 'Segoe Script', cursive" }}>
+          <span className="text-black">tape</span>
+          <span style={{ color: "#ff2e93" }}>s</span>
+        </h1>
+      </div>
+    );
+  }
+
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-black">
       <video
