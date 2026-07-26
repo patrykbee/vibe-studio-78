@@ -7,26 +7,26 @@ import logo from "@/assets/logo_tapes.png.asset.json";
 export const Route = createFileRoute("/signup")({
   head: () => ({
     meta: [
-      { title: "Zarejestruj się — tapes" },
-      { name: "description", content: "Załóż konto na tapes i dołącz do społeczności." },
-      { property: "og:title", content: "Zarejestruj się — tapes" },
-      { property: "og:description", content: "Załóż konto na tapes i dołącz do społeczności." },
+      { title: "Sign up — tapes" },
+      { name: "description", content: "Create your tapes account and join the community." },
+      { property: "og:title", content: "Sign up — tapes" },
+      { property: "og:description", content: "Create your tapes account and join the community." },
     ],
   }),
   component: SignUpPage,
 });
 
 const schema = z.object({
-  email: z.string().trim().email({ message: "Nieprawidłowy e-mail" }).max(255),
+  email: z.string().trim().email({ message: "Invalid e-mail" }).max(255),
   username: z
     .string()
     .trim()
-    .min(3, { message: "Min. 3 znaki" })
-    .max(30, { message: "Max. 30 znaków" })
-    .regex(/^[a-zA-Z0-9_.]+$/, { message: "Dozwolone: litery, cyfry, _ i ." }),
-  password: z.string().min(6, { message: "Min. 6 znaków" }).max(72),
+    .min(3, { message: "Min. 3 characters" })
+    .max(30, { message: "Max. 30 characters" })
+    .regex(/^[a-zA-Z0-9_.]+$/, { message: "Allowed: letters, digits, _ and ." }),
+  password: z.string().min(6, { message: "Min. 6 characters" }).max(72),
   birthDate: z.string().refine((v) => !Number.isNaN(Date.parse(v)), {
-    message: "Podaj datę urodzenia",
+    message: "Enter your date of birth",
   }),
 });
 
@@ -96,7 +96,7 @@ function SignUpPage() {
           />
           <input
             type="text"
-            placeholder="nazwa użytkownika"
+            placeholder="username"
             autoComplete="username"
             value={form.username}
             onChange={(e) => setForm({ ...form, username: e.target.value })}
@@ -104,14 +104,14 @@ function SignUpPage() {
           />
           <input
             type="password"
-            placeholder="hasło"
+            placeholder="password"
             autoComplete="new-password"
             value={form.password}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
             className="w-full rounded-md border border-white/20 bg-white/5 px-4 py-3 text-white placeholder-white/50 outline-none focus:border-[#ff2e93]"
           />
           <label className="block text-sm text-white/70">
-            data urodzenia
+            date of birth
             <input
               type="date"
               value={form.birthDate}
@@ -132,7 +132,7 @@ function SignUpPage() {
         </form>
 
         <p className="mt-6 text-center text-sm text-white/70">
-          masz już konto?{" "}
+          already have an account?{" "}
           <Link to="/login" className="font-semibold text-white underline">
             log in
           </Link>

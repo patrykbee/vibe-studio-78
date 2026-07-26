@@ -7,10 +7,10 @@ import logo from "@/assets/logo_tapes.png.asset.json";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Zaloguj się — tapes" },
-      { name: "description", content: "Zaloguj się do tapes." },
-      { property: "og:title", content: "Zaloguj się — tapes" },
-      { property: "og:description", content: "Zaloguj się do tapes." },
+      { title: "Log in — tapes" },
+      { name: "description", content: "Log in to tapes." },
+      { property: "og:title", content: "Log in — tapes" },
+      { property: "og:description", content: "Log in to tapes." },
     ],
   }),
   component: LoginPage,
@@ -27,7 +27,7 @@ function LoginPage() {
     e.preventDefault();
     setError(null);
     if (!identifier.trim() || !password) {
-      setError("Podaj login i hasło");
+      setError("Enter your username and password");
       return;
     }
     setLoading(true);
@@ -36,7 +36,7 @@ function LoginPage() {
       if (!email.includes("@")) {
         const res = await resolveEmailByUsername({ data: { username: email } });
         if (!res.email) {
-          setError("Nie znaleziono użytkownika");
+          setError("User not found");
           setLoading(false);
           return;
         }
@@ -47,13 +47,13 @@ function LoginPage() {
         password,
       });
       if (signInError) {
-        setError("Nieprawidłowe dane logowania");
+        setError("Invalid credentials");
         setLoading(false);
         return;
       }
       navigate({ to: "/feed" });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Coś poszło nie tak");
+      setError(err instanceof Error ? err.message : "Something went wrong");
       setLoading(false);
     }
   };
@@ -68,7 +68,7 @@ function LoginPage() {
         <form onSubmit={onSubmit} className="space-y-4">
           <input
             type="text"
-            placeholder="nazwa użytkownika lub e-mail"
+            placeholder="username or e-mail"
             autoComplete="username"
             value={identifier}
             onChange={(e) => setIdentifier(e.target.value)}
@@ -76,7 +76,7 @@ function LoginPage() {
           />
           <input
             type="password"
-            placeholder="hasło"
+            placeholder="password"
             autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -95,7 +95,7 @@ function LoginPage() {
         </form>
 
         <p className="mt-6 text-center text-sm text-white/70">
-          nie masz konta?{" "}
+          don't have an account?{" "}
           <Link to="/signup" className="font-semibold text-white underline">
             sign up
           </Link>
