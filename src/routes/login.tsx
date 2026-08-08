@@ -35,13 +35,13 @@ function LoginPage() {
     try {
       let email = identifier.trim();
       if (!email.includes("@")) {
-        const resolved = await resolveEmailByUsername(email);
-        if (!resolved) {
+        const resolved = await resolveEmailByUsername({ data: { username: email } });
+        if (!resolved.email) {
           setError("User not found");
           setLoading(false);
           return;
         }
-        email = resolved;
+        email = resolved.email;
       }
       const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
