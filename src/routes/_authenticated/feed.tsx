@@ -82,20 +82,21 @@ function FeedPage() {
   return (
     <div className="fixed inset-0 flex flex-col bg-black text-white">
       {/* Top tabs */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-20 flex flex-col items-center pt-3">
-        <div className="mb-2 h-[3px] w-16 rounded-full bg-white/80" />
-        <div className="pointer-events-auto flex items-center gap-8 text-lg font-semibold">
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-20 flex justify-center pt-3">
+        <div className="pointer-events-auto flex items-start gap-8 text-lg font-semibold">
           <button
             onClick={() => setTab("feed")}
-            className={tab === "feed" ? "text-white" : "text-white/60"}
+            className="flex flex-col items-center"
           >
-            feed
+            <span className={`mb-2 h-[3px] w-12 rounded-full ${tab === "feed" ? "bg-white" : "bg-white/30"}`} />
+            <span className={tab === "feed" ? "text-white" : "text-white/60"}>feed</span>
           </button>
           <button
             onClick={() => setTab("mycity")}
-            className={tab === "mycity" ? "text-white" : "text-white/60"}
+            className="flex flex-col items-center"
           >
-            my city
+            <span className={`mb-2 h-[3px] w-12 rounded-full ${tab === "mycity" ? "bg-white" : "bg-white/30"}`} />
+            <span className={tab === "mycity" ? "text-white" : "text-white/60"}>my city</span>
           </button>
         </div>
       </div>
