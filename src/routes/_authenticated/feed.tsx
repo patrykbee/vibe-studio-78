@@ -1,7 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Home, Search, Plus, Zap, User, Heart, MessageCircle, MoreHorizontal, Music } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 import video from "@/assets/homeVideo.mp4.asset.json";
 
 export const Route = createFileRoute("/_authenticated/feed")({
