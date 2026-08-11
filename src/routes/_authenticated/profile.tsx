@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowLeft, Settings, UserPlus } from "lucide-react";
+import { ArrowLeft, Crown, Settings, UserPlus } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { BottomNav } from "@/components/BottomNav";
 
@@ -61,11 +61,19 @@ function ProfilePage() {
 
       <div className="flex flex-col items-center px-6 pb-16 pt-6">
         {/* Avatar */}
-        <div className="relative h-28 w-28 overflow-hidden rounded-full bg-black/30 ring-2 ring-white/50">
-          <div className="flex h-full w-full items-center justify-center text-4xl">😊</div>
+        <div className="relative h-28 w-28">
+          <Crown
+            aria-label="Official platform profile"
+            className="absolute -top-4 right-1 z-10 h-9 w-9 rotate-12 text-[#00e5ff] drop-shadow-[0_0_8px_rgba(0,229,255,0.8)]"
+            fill="#00e5ff"
+            strokeWidth={1.5}
+          />
+          <div className="relative h-full w-full overflow-hidden rounded-full bg-black/30 ring-2 ring-white/50">
+            <div className="flex h-full w-full items-center justify-center text-4xl">😊</div>
+          </div>
           <button
             aria-label="Add friends"
-            className="absolute -right-1 -bottom-1 rounded-full bg-[#ffd400] p-1.5 text-black"
+            className="absolute -right-1 -bottom-1 z-10 rounded-full bg-[#ffd400] p-1.5 text-black"
           >
             <UserPlus className="h-4 w-4" />
           </button>
