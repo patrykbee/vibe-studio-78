@@ -57,7 +57,7 @@ const CLIPS: Clip[] = [
 ];
 
 function FeedPage() {
-  const navigate = useNavigate();
+  
   const [tab, setTab] = useState<"feed" | "mycity">("feed");
   const [active, setActive] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
