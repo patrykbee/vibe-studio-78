@@ -74,10 +74,6 @@ function FeedPage() {
     return () => el.removeEventListener("scroll", onScroll);
   }, []);
 
-  const signOut = async () => {
-    await supabase.auth.signOut();
-    navigate({ to: "/" });
-  };
 
   return (
     <div className="fixed inset-0 flex flex-col bg-black text-white">
