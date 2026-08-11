@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ArrowLeft, Settings, UserPlus } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { BottomNav } from "@/components/BottomNav";
 
 export const Route = createFileRoute("/_authenticated/profile")({
   head: () => ({
@@ -39,8 +40,9 @@ function ProfilePage() {
   };
 
   return (
+    <div className="fixed inset-0 flex flex-col">
     <div
-      className="fixed inset-0 overflow-y-auto text-white"
+      className="flex-1 overflow-y-auto text-white"
       style={{
         background:
           "linear-gradient(160deg, #ff2e93 0%, #ff4fa3 30%, #ff7ad9 55%, #b26bff 100%)",
@@ -92,6 +94,8 @@ function ProfilePage() {
 
         <p className="mt-24 text-base text-white/85">no tapes yet</p>
       </div>
+    </div>
+    <BottomNav active="profile" />
     </div>
   );
 }
