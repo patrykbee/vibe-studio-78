@@ -1,7 +1,8 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Home, Search, Plus, Zap, User, Heart, MessageCircle, MoreHorizontal, Music } from "lucide-react";
+import { Heart, MessageCircle, MoreHorizontal, Music } from "lucide-react";
 import video from "@/assets/homeVideo.mp4.asset.json";
+import { BottomNav } from "@/components/BottomNav";
 
 export const Route = createFileRoute("/_authenticated/feed")({
   head: () => ({
