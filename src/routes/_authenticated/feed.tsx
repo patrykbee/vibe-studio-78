@@ -133,7 +133,11 @@ function FeedPage() {
         <button className="p-3 text-white/80">
           <Zap className="h-6 w-6" />
         </button>
-        <button onClick={signOut} className="p-3 text-white/80">
+        <button
+          onClick={() => navigate({ to: "/profile" })}
+          aria-label="Profile"
+          className="p-3 text-white/80"
+        >
           <User className="h-6 w-6" />
         </button>
       </nav>
