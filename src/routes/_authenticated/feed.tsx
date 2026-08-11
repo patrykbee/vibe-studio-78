@@ -1,7 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Home, Search, Plus, Zap, User, Heart, MessageCircle, MoreHorizontal, Music } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 import video from "@/assets/homeVideo.mp4.asset.json";
 
 export const Route = createFileRoute("/_authenticated/feed")({
@@ -74,10 +73,6 @@ function FeedPage() {
     return () => el.removeEventListener("scroll", onScroll);
   }, []);
 
-  const signOut = async () => {
-    await supabase.auth.signOut();
-    navigate({ to: "/" });
-  };
 
   return (
     <div className="fixed inset-0 flex flex-col bg-black text-white">
@@ -133,7 +128,11 @@ function FeedPage() {
         <button className="p-3 text-white/80">
           <Zap className="h-6 w-6" />
         </button>
-        <button onClick={signOut} className="p-3 text-white/80">
+        <button
+          onClick={() => navigate({ to: "/profile" })}
+          aria-label="Profile"
+          className="p-3 text-white/80"
+        >
           <User className="h-6 w-6" />
         </button>
       </nav>
