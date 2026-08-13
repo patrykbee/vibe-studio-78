@@ -20,6 +20,7 @@ function ProfilePage() {
   const navigate = useNavigate();
   const [username, setUsername] = useState<string>("");
   const [bio, setBio] = useState<string>("");
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -29,12 +30,18 @@ function ProfilePage() {
       if (!id) return;
       const { data } = await supabase
         .from("profiles")
-        .select("username, bio")
+        .select("username, bio, avatar_url")
         .eq("id", id)
         .maybeSingle();
       if (!cancelled) {
         setUsername(data?.username ?? "");
         setBio(data?.bio ?? "");
+      }
+      if (data?.avatar_url) {
+        const { data: signed } = await supabase.storage
+          .from("avatars")
+          .createSignedUrl(data.avatar_url, 3600);
+        if (!cancelled) setAvatarUrl(signed?.signedUrl ?? null);
       }
     })();
     return () => {
@@ -77,7 +84,11 @@ function ProfilePage() {
             strokeWidth={1.5}
           />
           <div className="relative h-full w-full overflow-hidden rounded-full bg-black/30 ring-2 ring-white/50">
-            <div className="flex h-full w-full items-center justify-center text-4xl">😊</div>
+            {avatarUrl ? (
+              <img src={avatarUrl} alt={`${username || "Your"} profile photo`} className="h-full w-full object-cover" />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center text-4xl">😊</div>
+            )}
           </div>
           <button
             aria-label="Add friends"
