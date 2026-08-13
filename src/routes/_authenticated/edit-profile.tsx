@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Camera, Loader2, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -69,6 +69,41 @@ function EditProfilePage() {
   const [fullName, setFullName] = useState("");
   const [instagram, setInstagram] = useState("");
   const [bio, setBio] = useState("");
+  const [avatarPath, setAvatarPath] = useState<string | null>(null);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  const loadSignedUrl = async (path: string) => {
+    const { data } = await supabase.storage.from("avatars").createSignedUrl(path, 3600);
+    setAvatarUrl(data?.signedUrl ?? null);
+  };
+
+  const onPickFile = async (file: File) => {
+    const { data: userRes } = await supabase.auth.getUser();
+    const id = userRes.user?.id;
+    if (!id) return;
+    setUploading(true);
+    const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
+    const path = `${id}/avatar-${Date.now()}.${ext}`;
+    const { error: upErr } = await supabase.storage
+      .from("avatars")
+      .upload(path, file, { upsert: true, contentType: file.type });
+    if (upErr) {
+      setUploading(false);
+      toast.error(upErr.message);
+      return;
+    }
+    const { error } = await supabase.from("profiles").update({ avatar_url: path }).eq("id", id);
+    setUploading(false);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    setAvatarPath(path);
+    await loadSignedUrl(path);
+    toast.success("Profile photo updated");
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -78,7 +113,7 @@ function EditProfilePage() {
       if (!id) return;
       const { data } = await supabase
         .from("profiles")
-        .select("username, full_name, instagram_id, bio")
+        .select("username, full_name, instagram_id, bio, avatar_url")
         .eq("id", id)
         .maybeSingle();
       if (cancelled) return;
@@ -86,7 +121,9 @@ function EditProfilePage() {
       setFullName(data?.full_name ?? "");
       setInstagram(data?.instagram_id ?? "");
       setBio(data?.bio ?? "");
+      setAvatarPath(data?.avatar_url ?? null);
       setLoading(false);
+      if (data?.avatar_url) void loadSignedUrl(data.avatar_url);
     })();
     return () => {
       cancelled = true;
@@ -138,9 +175,33 @@ function EditProfilePage() {
       <div className="flex-1 overflow-y-auto">
         {/* Avatar */}
         <div className="flex justify-center py-8">
-          <div className="flex h-32 w-32 items-center justify-center rounded-full bg-background text-6xl">
-            😊
-          </div>
+          <button
+            type="button"
+            onClick={() => fileRef.current?.click()}
+            aria-label="Change profile photo"
+            className="relative h-32 w-32 overflow-hidden rounded-full bg-background transition-transform active:scale-95"
+          >
+            {avatarUrl ? (
+              <img src={avatarUrl} alt="Your profile photo" className="h-full w-full object-cover" />
+            ) : (
+              <span className="flex h-full w-full items-center justify-center text-6xl">😊</span>
+            )}
+            <span className="absolute inset-x-0 bottom-0 flex items-center justify-center gap-1 bg-black/50 py-1.5 text-xs text-white">
+              {uploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Camera className="h-4 w-4" />}
+              {uploading ? "uploading" : "change"}
+            </span>
+          </button>
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              e.target.value = "";
+              if (f) void onPickFile(f);
+            }}
+          />
         </div>
 
         <Field label="musername" value={username} onChange={setUsername} placeholder="username" />
