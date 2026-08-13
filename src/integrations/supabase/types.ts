@@ -16,23 +16,32 @@ export type Database = {
     Tables: {
       profiles: {
         Row: {
+          bio: string | null
           birth_date: string
           created_at: string
+          full_name: string | null
           id: string
+          instagram_id: string | null
           updated_at: string
           username: string
         }
         Insert: {
+          bio?: string | null
           birth_date: string
           created_at?: string
+          full_name?: string | null
           id: string
+          instagram_id?: string | null
           updated_at?: string
           username: string
         }
         Update: {
+          bio?: string | null
           birth_date?: string
           created_at?: string
+          full_name?: string | null
           id?: string
+          instagram_id?: string | null
           updated_at?: string
           username?: string
         }
