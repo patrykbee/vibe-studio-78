@@ -15,6 +15,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedFeedRouteImport } from './routes/_authenticated/feed'
+import { Route as AuthenticatedEditProfileRouteImport } from './routes/_authenticated/edit-profile'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -45,11 +46,18 @@ const AuthenticatedFeedRoute = AuthenticatedFeedRouteImport.update({
   path: '/feed',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedEditProfileRoute =
+  AuthenticatedEditProfileRouteImport.update({
+    id: '/edit-profile',
+    path: '/edit-profile',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/edit-profile': typeof AuthenticatedEditProfileRoute
   '/feed': typeof AuthenticatedFeedRoute
   '/profile': typeof AuthenticatedProfileRoute
 }
@@ -57,6 +65,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/edit-profile': typeof AuthenticatedEditProfileRoute
   '/feed': typeof AuthenticatedFeedRoute
   '/profile': typeof AuthenticatedProfileRoute
 }
@@ -66,20 +75,22 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/_authenticated/edit-profile': typeof AuthenticatedEditProfileRoute
   '/_authenticated/feed': typeof AuthenticatedFeedRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/signup' | '/feed' | '/profile'
+  fullPaths: '/' | '/login' | '/signup' | '/edit-profile' | '/feed' | '/profile'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/signup' | '/feed' | '/profile'
+  to: '/' | '/login' | '/signup' | '/edit-profile' | '/feed' | '/profile'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/login'
     | '/signup'
+    | '/_authenticated/edit-profile'
     | '/_authenticated/feed'
     | '/_authenticated/profile'
   fileRoutesById: FileRoutesById
@@ -135,15 +146,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFeedRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/edit-profile': {
+      id: '/_authenticated/edit-profile'
+      path: '/edit-profile'
+      fullPath: '/edit-profile'
+      preLoaderRoute: typeof AuthenticatedEditProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedEditProfileRoute: typeof AuthenticatedEditProfileRoute
   AuthenticatedFeedRoute: typeof AuthenticatedFeedRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedEditProfileRoute: AuthenticatedEditProfileRoute,
   AuthenticatedFeedRoute: AuthenticatedFeedRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
 }
