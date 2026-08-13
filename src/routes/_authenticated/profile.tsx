@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ArrowLeft, Crown, Settings, UserPlus } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -104,12 +104,13 @@ function ProfilePage() {
           ))}
         </div>
 
-        <button
-          onClick={() => navigate({ to: "/edit-profile" })}
-          className="mt-6 rounded-full border-2 border-white px-8 py-2.5 text-lg font-semibold"
+        <Link
+          to="/edit-profile"
+          preload="render"
+          className="mt-6 rounded-full border-2 border-white px-8 py-2.5 text-lg font-semibold transition-transform active:scale-95"
         >
           edit profile
-        </button>
+        </Link>
 
 
         <p className="mt-24 text-base text-white/85">no tapes yet</p>
