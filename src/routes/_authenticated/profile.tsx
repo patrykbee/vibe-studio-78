@@ -96,9 +96,13 @@ function ProfilePage() {
           ))}
         </div>
 
-        <button className="mt-6 rounded-full border-2 border-white px-8 py-2.5 text-lg font-semibold">
+        <button
+          onClick={() => navigate({ to: "/edit-profile" })}
+          className="mt-6 rounded-full border-2 border-white px-8 py-2.5 text-lg font-semibold"
+        >
           edit profile
         </button>
+
 
         <p className="mt-24 text-base text-white/85">no tapes yet</p>
       </div>
