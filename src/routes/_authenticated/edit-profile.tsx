@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -126,9 +126,9 @@ function EditProfilePage() {
         className="flex items-center justify-between px-4 py-4 text-white"
         style={{ background: TAPES_GRADIENT }}
       >
-        <button onClick={() => navigate({ to: "/profile" })} aria-label="Close" className="p-1">
+        <Link to="/profile" preload="render" aria-label="Close" className="p-1 transition-transform active:scale-90">
           <X className="h-7 w-7" />
-        </button>
+        </Link>
         <h1 className="text-lg font-semibold">edit profile</h1>
         <button onClick={save} disabled={saving || loading} className="p-1 text-lg disabled:opacity-60">
           Done
