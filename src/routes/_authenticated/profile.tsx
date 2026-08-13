@@ -19,6 +19,7 @@ export const Route = createFileRoute("/_authenticated/profile")({
 function ProfilePage() {
   const navigate = useNavigate();
   const [username, setUsername] = useState<string>("");
+  const [bio, setBio] = useState<string>("");
 
   useEffect(() => {
     let cancelled = false;
@@ -26,8 +27,15 @@ function ProfilePage() {
       const { data: userRes } = await supabase.auth.getUser();
       const id = userRes.user?.id;
       if (!id) return;
-      const { data } = await supabase.from("profiles").select("username").eq("id", id).maybeSingle();
-      if (!cancelled) setUsername(data?.username ?? "");
+      const { data } = await supabase
+        .from("profiles")
+        .select("username, bio")
+        .eq("id", id)
+        .maybeSingle();
+      if (!cancelled) {
+        setUsername(data?.username ?? "");
+        setBio(data?.bio ?? "");
+      }
     })();
     return () => {
       cancelled = true;
@@ -80,7 +88,7 @@ function ProfilePage() {
         </div>
 
         <p className="mt-3 text-base font-medium">@{username || "yourname"}</p>
-        <p className="mt-3 text-sm text-white/85">"nagrywaj z pasji, żyj z Tapes"</p>
+        <p className="mt-3 text-sm text-white/85">{bio || "nagrywaj z pasji, żyj z Tapes"}</p>
 
         {/* Stats */}
         <div className="mt-5 flex w-full max-w-xs items-center justify-around">
