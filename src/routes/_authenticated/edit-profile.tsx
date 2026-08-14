@@ -1,8 +1,11 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { Camera, Loader2, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { myProfileQueryOptions, useMyProfile } from "@/hooks/useProfile";
 import { toast } from "sonner";
+
 
 export const Route = createFileRoute("/_authenticated/edit-profile")({
   head: () => ({
@@ -63,21 +66,27 @@ function Field({
 
 function EditProfilePage() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
+  const queryClient = useQueryClient();
+  const { data: profile, isLoading } = useMyProfile();
   const [saving, setSaving] = useState(false);
-  const [username, setUsername] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [instagram, setInstagram] = useState("");
-  const [bio, setBio] = useState("");
-  const [avatarPath, setAvatarPath] = useState<string | null>(null);
-  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [username, setUsername] = useState(profile?.username ?? "");
+  const [fullName, setFullName] = useState(profile?.fullName ?? "");
+  const [instagram, setInstagram] = useState(profile?.instagram ?? "");
+  const [bio, setBio] = useState(profile?.bio ?? "");
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(profile?.avatarUrl ?? null);
   const [uploading, setUploading] = useState(false);
+  const hydrated = useRef(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  const loadSignedUrl = async (path: string) => {
-    const { data } = await supabase.storage.from("avatars").createSignedUrl(path, 3600);
-    setAvatarUrl(data?.signedUrl ?? null);
-  };
+  useEffect(() => {
+    if (!profile || hydrated.current) return;
+    hydrated.current = true;
+    setUsername(profile.username);
+    setFullName(profile.fullName);
+    setInstagram(profile.instagram);
+    setBio(profile.bio);
+    setAvatarUrl(profile.avatarUrl);
+  }, [profile]);
 
   const onPickFile = async (file: File) => {
     const { data: userRes } = await supabase.auth.getUser();
@@ -100,35 +109,13 @@ function EditProfilePage() {
       toast.error(error.message);
       return;
     }
-    setAvatarPath(path);
-    await loadSignedUrl(path);
+    const { data: signed } = await supabase.storage.from("avatars").createSignedUrl(path, 3600);
+    setAvatarUrl(signed?.signedUrl ?? null);
+    queryClient.setQueryData(myProfileQueryOptions.queryKey, (prev) =>
+      prev ? { ...prev, avatarPath: path, avatarUrl: signed?.signedUrl ?? null } : prev,
+    );
     toast.success("Profile photo updated");
   };
-
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      const { data: userRes } = await supabase.auth.getUser();
-      const id = userRes.user?.id;
-      if (!id) return;
-      const { data } = await supabase
-        .from("profiles")
-        .select("username, full_name, instagram_id, bio, avatar_url")
-        .eq("id", id)
-        .maybeSingle();
-      if (cancelled) return;
-      setUsername(data?.username ?? "");
-      setFullName(data?.full_name ?? "");
-      setInstagram(data?.instagram_id ?? "");
-      setBio(data?.bio ?? "");
-      setAvatarPath(data?.avatar_url ?? null);
-      setLoading(false);
-      if (data?.avatar_url) void loadSignedUrl(data.avatar_url);
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
 
   const save = async () => {
     if (!username.trim()) {
@@ -153,8 +140,20 @@ function EditProfilePage() {
       toast.error(error.message.includes("duplicate") ? "Username already taken" : error.message);
       return;
     }
+    queryClient.setQueryData(myProfileQueryOptions.queryKey, (prev) =>
+      prev
+        ? {
+            ...prev,
+            username: username.trim(),
+            fullName: fullName.trim(),
+            instagram: instagram.trim(),
+            bio: bio.trim(),
+          }
+        : prev,
+    );
     navigate({ to: "/profile" });
   };
+
 
   return (
     <div className="fixed inset-0 flex flex-col bg-muted">
@@ -167,7 +166,7 @@ function EditProfilePage() {
           <X className="h-7 w-7" />
         </Link>
         <h1 className="text-lg font-semibold">edit profile</h1>
-        <button onClick={save} disabled={saving || loading} className="p-1 text-lg disabled:opacity-60">
+        <button onClick={save} disabled={saving || isLoading} className="p-1 text-lg disabled:opacity-60">
           Done
         </button>
       </div>

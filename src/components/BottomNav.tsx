@@ -1,9 +1,19 @@
 import { Link } from "@tanstack/react-router";
+import { useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { Home, Search, Plus, Zap, User } from "lucide-react";
+import { myProfileQueryOptions } from "@/hooks/useProfile";
 
 export function BottomNav({ active }: { active?: "home" | "profile" }) {
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    void queryClient.prefetchQuery(myProfileQueryOptions);
+  }, [queryClient]);
+
   return (
     <nav className="z-20 flex items-center justify-around border-t border-white/10 bg-black px-2 pb-[env(safe-area-inset-bottom)] pt-2">
+
       <Link
         to="/feed"
         aria-label="Home"

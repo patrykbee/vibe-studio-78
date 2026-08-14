@@ -1,10 +1,11 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
 import { ArrowLeft, Crown, Settings, UserPlus } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { BottomNav } from "@/components/BottomNav";
+import { myProfileQueryOptions, useMyProfile } from "@/hooks/useProfile";
 
 export const Route = createFileRoute("/_authenticated/profile")({
+  loader: ({ context }) => context.queryClient.ensureQueryData(myProfileQueryOptions),
   head: () => ({
     meta: [
       { title: "Profile — tapes" },
@@ -14,45 +15,22 @@ export const Route = createFileRoute("/_authenticated/profile")({
     ],
   }),
   component: ProfilePage,
+  errorComponent: ({ error }) => <div role="alert" className="p-6">{error.message}</div>,
+  notFoundComponent: () => <div className="p-6">Profile not found.</div>,
 });
 
 function ProfilePage() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState<string>("");
-  const [bio, setBio] = useState<string>("");
-  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      const { data: userRes } = await supabase.auth.getUser();
-      const id = userRes.user?.id;
-      if (!id) return;
-      const { data } = await supabase
-        .from("profiles")
-        .select("username, bio, avatar_url")
-        .eq("id", id)
-        .maybeSingle();
-      if (!cancelled) {
-        setUsername(data?.username ?? "");
-        setBio(data?.bio ?? "");
-      }
-      if (data?.avatar_url) {
-        const { data: signed } = await supabase.storage
-          .from("avatars")
-          .createSignedUrl(data.avatar_url, 3600);
-        if (!cancelled) setAvatarUrl(signed?.signedUrl ?? null);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  const { data: profile } = useMyProfile();
+  const username = profile?.username ?? "";
+  const bio = profile?.bio ?? "";
+  const avatarUrl = profile?.avatarUrl ?? null;
 
   const signOut = async () => {
     await supabase.auth.signOut();
     navigate({ to: "/" });
   };
+
 
   return (
     <div className="fixed inset-0 flex flex-col">
