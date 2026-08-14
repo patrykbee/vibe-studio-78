@@ -4,7 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Home, Search, Plus, Zap, User } from "lucide-react";
 import { myProfileQueryOptions } from "@/hooks/useProfile";
 
-export function BottomNav({ active }: { active?: "home" | "profile" }) {
+export function BottomNav({ active }: { active?: "home" | "search" | "profile" }) {
   const queryClient = useQueryClient();
 
   useEffect(() => {
