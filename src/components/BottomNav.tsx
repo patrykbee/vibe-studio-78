@@ -21,9 +21,13 @@ export function BottomNav({ active }: { active?: "home" | "search" | "profile" }
       >
         <Home className="h-6 w-6" />
       </Link>
-      <button aria-label="Search" className="p-3 text-white/80">
+      <Link
+        to="/search"
+        aria-label="Search"
+        className={active === "search" ? "p-3 text-white" : "p-3 text-white/80"}
+      >
         <Search className="h-6 w-6" />
-      </button>
+      </Link>
       <button
         aria-label="Create"
         className="rounded-full bg-[#ffd400] p-3 text-black shadow-[0_0_20px_rgba(255,212,0,0.5)]"
