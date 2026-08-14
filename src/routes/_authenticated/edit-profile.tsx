@@ -166,7 +166,7 @@ function EditProfilePage() {
           <X className="h-7 w-7" />
         </Link>
         <h1 className="text-lg font-semibold">edit profile</h1>
-        <button onClick={save} disabled={saving || loading} className="p-1 text-lg disabled:opacity-60">
+        <button onClick={save} disabled={saving || isLoading} className="p-1 text-lg disabled:opacity-60">
           Done
         </button>
       </div>
