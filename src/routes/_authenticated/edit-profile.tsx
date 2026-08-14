@@ -1,8 +1,11 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { Camera, Loader2, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { myProfileQueryOptions, useMyProfile } from "@/hooks/useProfile";
 import { toast } from "sonner";
+
 
 export const Route = createFileRoute("/_authenticated/edit-profile")({
   head: () => ({
