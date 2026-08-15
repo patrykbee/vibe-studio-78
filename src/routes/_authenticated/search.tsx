@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Flame, Search, Trophy, UserPlus, Disc3 } from "lucide-react";
+import { Flame, Search, Trophy, UserPlus, Disc3, Laugh, UtensilsCrossed, Mic2, PawPrint } from "lucide-react";
 import { BottomNav } from "@/components/BottomNav";
 
 export const Route = createFileRoute("/_authenticated/search")({
