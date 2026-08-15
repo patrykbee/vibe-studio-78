@@ -65,7 +65,7 @@ function SearchPage() {
         </div>
 
         <div className="bg-muted py-3 text-center text-lg text-muted-foreground">categories</div>
-        <div className="flex gap-5 overflow-x-auto bg-background px-4 py-4">
+        <div className="flex justify-center gap-6 overflow-x-auto bg-background px-4 py-4">
           {[
             { label: "comedy", emoji: "😂", color: "#ffd54a" },
             { label: "food", emoji: "🍔", color: "#ff8a4a" },
