@@ -65,19 +65,24 @@ function SearchPage() {
         </div>
 
         <div className="bg-muted py-3 text-center text-lg text-muted-foreground">categories</div>
-        <div className="grid grid-cols-2 gap-px bg-border">
+        <div className="flex gap-5 overflow-x-auto bg-background px-4 py-4">
           {[
-            { label: "comedy", color: "#ff2e93" },
-            { label: "food", color: "#ffb300" },
-            { label: "lipsync", color: "#b26bff" },
-            { label: "animals", color: "#00c2ff" },
+            { label: "comedy", emoji: "😂", color: "#ffd54a" },
+            { label: "food", emoji: "🍔", color: "#ff8a4a" },
+            { label: "lipsync", emoji: "🎤", color: "#ff2e93" },
+            { label: "animals", emoji: "🐶", color: "#b26bff" },
           ].map((c) => (
             <button
               key={c.label}
-              className="flex h-24 items-end p-3 text-left transition-transform active:scale-[0.98]"
-              style={{ background: c.color }}
+              className="flex shrink-0 flex-col items-center gap-2 transition-transform active:scale-95"
             >
-              <span className="text-xl font-bold text-white">{c.label}</span>
+              <span
+                className="flex h-16 w-16 items-center justify-center rounded-full text-3xl"
+                style={{ background: c.color }}
+              >
+                {c.emoji}
+              </span>
+              <span className="text-sm font-medium text-foreground">{c.label}</span>
             </button>
           ))}
         </div>
