@@ -44,6 +44,7 @@ function SearchPage() {
           style={{ background: "linear-gradient(160deg, #2a0b2e 0%, #7a1350 55%, #b26bff 100%)" }}
         >
           <span className="rounded bg-[#ff2e93] px-3 py-1 text-sm font-semibold text-white">contest</span>
+          <h1 className="text-3xl font-bold text-white">#Tapes2026</h1>
           <button className="rounded-full border-2 border-white px-8 py-2 text-lg font-semibold text-white transition-transform active:scale-95">
             details
           </button>
