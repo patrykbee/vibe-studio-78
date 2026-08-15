@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Flame, Search, Trophy, UserPlus, Disc3 } from "lucide-react";
+import { Flame, Search, Trophy, UserPlus, Disc3, Laugh, UtensilsCrossed, Mic2, PawPrint } from "lucide-react";
 import { BottomNav } from "@/components/BottomNav";
 
 export const Route = createFileRoute("/_authenticated/search")({
@@ -67,20 +67,20 @@ function SearchPage() {
         <div className="bg-muted py-3 text-center text-lg text-muted-foreground">categories</div>
         <div className="flex justify-center gap-6 overflow-x-auto bg-background px-4 py-4">
           {[
-            { label: "comedy", emoji: "😂", color: "#ffd54a" },
-            { label: "food", emoji: "🍔", color: "#ff8a4a" },
-            { label: "lipsync", emoji: "🎤", color: "#ff2e93" },
-            { label: "animals", emoji: "🐶", color: "#b26bff" },
+            { label: "comedy", Icon: Laugh, color: "#ffd54a" },
+            { label: "food", Icon: UtensilsCrossed, color: "#ff8a4a" },
+            { label: "lipsync", Icon: Mic2, color: "#ff2e93" },
+            { label: "animals", Icon: PawPrint, color: "#b26bff" },
           ].map((c) => (
             <button
               key={c.label}
               className="flex shrink-0 flex-col items-center gap-2 transition-transform active:scale-95"
             >
               <span
-                className="flex h-16 w-16 items-center justify-center rounded-full text-3xl"
+                className="flex h-16 w-16 items-center justify-center rounded-full text-white shadow-sm"
                 style={{ background: c.color }}
               >
-                {c.emoji}
+                <c.Icon className="h-7 w-7" strokeWidth={1.75} />
               </span>
               <span className="text-sm font-medium text-foreground">{c.label}</span>
             </button>
