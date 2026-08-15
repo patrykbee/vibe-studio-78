@@ -65,7 +65,22 @@ function SearchPage() {
         </div>
 
         <div className="bg-muted py-3 text-center text-lg text-muted-foreground">categories</div>
-        <div className="h-40 bg-background" />
+        <div className="grid grid-cols-2 gap-px bg-border">
+          {[
+            { label: "comedy", color: "#ff2e93" },
+            { label: "food", color: "#ffb300" },
+            { label: "lipsync", color: "#b26bff" },
+            { label: "animals", color: "#00c2ff" },
+          ].map((c) => (
+            <button
+              key={c.label}
+              className="flex h-24 items-end p-3 text-left transition-transform active:scale-[0.98]"
+              style={{ background: c.color }}
+            >
+              <span className="text-xl font-bold text-white">{c.label}</span>
+            </button>
+          ))}
+        </div>
         <div className="bg-muted py-3 text-center text-lg text-muted-foreground">trending tags</div>
         <button className="flex w-full items-center bg-[#e0117f] px-4 py-4 text-left transition-transform active:scale-[0.98]">
           <span className="text-2xl font-bold text-white">#tapes2026</span>
