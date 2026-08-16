@@ -42,22 +42,24 @@ function ProfilePage() {
       }}
     >
       {/* Top bar */}
-      <div className="flex items-center justify-between px-4 pt-4">
-        <button onClick={() => navigate({ to: "/feed" })} aria-label="Back to feed" className="p-1">
+      <div className="relative flex items-center justify-between px-4 pt-4">
+        <button onClick={() => navigate({ to: "/feed" })} aria-label="Back to feed" className="relative z-10 p-1">
           <ArrowLeft className="h-7 w-7" />
         </button>
-        <h1 className="text-lg font-semibold">{username || "Your Name"}</h1>
-        <button onClick={signOut} aria-label="Settings" className="p-1">
+        <h1 className="pointer-events-none absolute inset-x-0 top-4 truncate px-14 pt-1 text-center text-lg font-semibold">
+          {username || "Your Name"}
+        </h1>
+        <button onClick={signOut} aria-label="Settings" className="relative z-10 p-1">
           <Settings className="h-7 w-7" />
         </button>
       </div>
 
-      <div className="flex flex-col items-center px-6 pb-16 pt-6">
+      <div className="mx-auto flex w-full max-w-sm flex-col items-center px-6 pb-16 pt-6 text-center">
         {/* Avatar */}
         <div className="relative h-28 w-28">
           <Crown
             aria-label="Official platform profile"
-            className="absolute -top-4 right-1 z-10 h-9 w-9 rotate-12 text-[#00e5ff] drop-shadow-[0_0_8px_rgba(0,229,255,0.8)]"
+            className="absolute -top-5 left-1/2 z-10 h-9 w-9 -translate-x-1/2 rotate-12 text-[#00e5ff] drop-shadow-[0_0_8px_rgba(0,229,255,0.8)]"
             fill="#00e5ff"
             strokeWidth={1.5}
           />
@@ -80,7 +82,7 @@ function ProfilePage() {
         <p className="mt-3 text-sm text-white/85">{bio || "nagrywaj z pasji, żyj z Tapes"}</p>
 
         {/* Stats */}
-        <div className="mt-5 flex w-full max-w-xs items-center justify-around">
+        <div className="mt-5 grid w-full max-w-xs grid-cols-3 items-start">
           {[
             { value: 0, label: "following" },
             { value: 0, label: "fans" },
