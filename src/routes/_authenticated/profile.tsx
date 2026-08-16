@@ -59,7 +59,7 @@ function ProfilePage() {
         <div className="relative h-28 w-28">
           <Crown
             aria-label="Official platform profile"
-            className="absolute -top-5 left-1/2 z-10 h-9 w-9 -translate-x-1/2 rotate-12 text-[#00e5ff] drop-shadow-[0_0_8px_rgba(0,229,255,0.8)]"
+            className="absolute -top-4 right-1 z-10 h-9 w-9 rotate-12 text-[#00e5ff] drop-shadow-[0_0_8px_rgba(0,229,255,0.8)]"
             fill="#00e5ff"
             strokeWidth={1.5}
           />
