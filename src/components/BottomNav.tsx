@@ -4,7 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Home, Search, Plus, Zap, User } from "lucide-react";
 import { myProfileQueryOptions } from "@/hooks/useProfile";
 
-export function BottomNav({ active }: { active?: "home" | "search" | "profile" }) {
+export function BottomNav({ active }: { active?: "home" | "search" | "activity" | "profile" }) {
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -34,9 +34,13 @@ export function BottomNav({ active }: { active?: "home" | "search" | "profile" }
       >
         <Plus className="h-6 w-6" strokeWidth={3} />
       </button>
-      <button aria-label="Activity" className="p-3 text-white/80">
+      <Link
+        to="/notifications"
+        aria-label="Activity"
+        className={active === "activity" ? "p-3 text-white" : "p-3 text-white/80"}
+      >
         <Zap className="h-6 w-6" />
-      </button>
+      </Link>
       <Link
         to="/profile"
         aria-label="Profile"
