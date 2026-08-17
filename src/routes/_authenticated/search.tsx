@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Flame, Search, Trophy, UserPlus, Disc3, Laugh, UtensilsCrossed, Mic2, PawPrint } from "lucide-react";
 import { BottomNav } from "@/components/BottomNav";
 
@@ -45,9 +45,14 @@ function SearchPage() {
         >
           <span className="rounded bg-[#ff2e93] px-3 py-1 text-sm font-semibold text-white">contest</span>
           <h1 className="text-3xl font-bold text-white">#Tapes2026</h1>
-          <button className="rounded-full border-2 border-white px-8 py-2 text-lg font-semibold text-white transition-transform active:scale-95">
+          <Link
+            to="/tag/$tag"
+            params={{ tag: "tapes2026" }}
+            preload="intent"
+            className="rounded-full border-2 border-white px-8 py-2 text-lg font-semibold text-white transition-transform active:scale-95"
+          >
             details
-          </button>
+          </Link>
         </div>
 
         {/* Shortcuts */}
@@ -87,9 +92,14 @@ function SearchPage() {
           ))}
         </div>
         <div className="bg-muted py-3 text-center text-lg text-muted-foreground">trending tags</div>
-        <button className="flex w-full items-center bg-[#e0117f] px-4 py-4 text-left transition-transform active:scale-[0.98]">
+        <Link
+          to="/tag/$tag"
+          params={{ tag: "tapes2026" }}
+          preload="intent"
+          className="flex w-full items-center bg-[#e0117f] px-4 py-4 text-left transition-transform active:scale-[0.98]"
+        >
           <span className="text-2xl font-bold text-white">#tapes2026</span>
-        </button>
+        </Link>
         <div className="h-40 bg-muted" />
       </div>
 
