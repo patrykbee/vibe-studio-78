@@ -45,9 +45,14 @@ function SearchPage() {
         >
           <span className="rounded bg-[#ff2e93] px-3 py-1 text-sm font-semibold text-white">contest</span>
           <h1 className="text-3xl font-bold text-white">#Tapes2026</h1>
-          <button className="rounded-full border-2 border-white px-8 py-2 text-lg font-semibold text-white transition-transform active:scale-95">
+          <Link
+            to="/tag/$tag"
+            params={{ tag: "tapes2026" }}
+            preload="intent"
+            className="rounded-full border-2 border-white px-8 py-2 text-lg font-semibold text-white transition-transform active:scale-95"
+          >
             details
-          </button>
+          </Link>
         </div>
 
         {/* Shortcuts */}
