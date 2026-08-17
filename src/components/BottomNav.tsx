@@ -30,7 +30,7 @@ export function BottomNav({ active }: { active?: "home" | "search" | "activity" 
       </Link>
       <button
         aria-label="Create"
-        className="rounded-full bg-[#ffd400] p-3 text-black shadow-[0_0_20px_rgba(255,212,0,0.5)]"
+        className="rounded-full bg-[#8b3dff] p-3 text-white shadow-[0_0_20px_rgba(139,61,255,0.5)]"
       >
         <Plus className="h-6 w-6" strokeWidth={3} />
       </button>

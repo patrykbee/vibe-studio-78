@@ -40,7 +40,7 @@ function TagPage() {
         </p>
 
         <div className="flex justify-center pt-5">
-          <button className="rounded-full bg-[#ffd400] px-10 py-3 text-xl font-semibold text-black shadow-[0_0_20px_rgba(255,212,0,0.4)] transition-transform active:scale-95">
+          <button className="rounded-full bg-[#8b3dff] px-10 py-3 text-xl font-semibold text-white shadow-[0_0_20px_rgba(139,61,255,0.5)] transition-transform active:scale-95">
             post video
           </button>
         </div>
