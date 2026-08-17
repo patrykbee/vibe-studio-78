@@ -92,9 +92,14 @@ function SearchPage() {
           ))}
         </div>
         <div className="bg-muted py-3 text-center text-lg text-muted-foreground">trending tags</div>
-        <button className="flex w-full items-center bg-[#e0117f] px-4 py-4 text-left transition-transform active:scale-[0.98]">
+        <Link
+          to="/tag/$tag"
+          params={{ tag: "tapes2026" }}
+          preload="intent"
+          className="flex w-full items-center bg-[#e0117f] px-4 py-4 text-left transition-transform active:scale-[0.98]"
+        >
           <span className="text-2xl font-bold text-white">#tapes2026</span>
-        </button>
+        </Link>
         <div className="h-40 bg-muted" />
       </div>
 
